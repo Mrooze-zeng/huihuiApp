@@ -14,6 +14,8 @@ export default class CalendarComponent extends Calendar(Component) {
     this.handleNext = this.handleNext.bind(this);
     this.handlePrev = this.handlePrev.bind(this);
 
+    this.listenWindowEvents = this.listenWindowEvents.bind(this);
+
     this.ctx = null;
 
     this.state = {
@@ -23,6 +25,16 @@ export default class CalendarComponent extends Calendar(Component) {
   componentDidMount() {
     this.setCanvas();
     this.renderCurrentMonth(this.getAllDate());
+    this.listenWindowEvents();
+  }
+  listenWindowEvents() {
+    // window.addEventListener(
+    //   "click",
+    //   _.debounce((e) => {
+    //     console.log("===========", e, e.target === this.canvas.current);
+    //   }, true),
+    //   1000,
+    // );
   }
   setCanvas() {
     this.canvas.current.style.width = this.width + "px";
@@ -86,7 +98,12 @@ export default class CalendarComponent extends Calendar(Component) {
       }
 
       //draw box
-      if (date[i].isInRegion(px, py) && date[i].isValid) {
+      if (
+        date[i].isInRegion(px, py) &&
+        date[i].isValid
+        // ||
+        // date[i].isTheSameDay(this.getSelectedDate())
+      ) {
         this.drawSelectedBox(x, y, w, h);
       }
 

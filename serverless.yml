@@ -1,0 +1,41 @@
+component: http
+name: http-express-KK_ja801Mx
+org: '1252911770'
+app: huihui-app
+stage: dev
+inputs:
+  region: ap-guangzhou
+  src:
+    src: ./
+    exclude:
+      - .env
+  faas:
+    runtime: Nodejs12.16
+    eip: false
+    timeout: 3
+    memorySize: 512
+    tags: []
+    framework: express
+    environments:
+      - key: SERVERLESS
+        value: '1'
+    layers:
+      - name: huihui-app-layer
+        version: 2
+  apigw:
+    timeout: 60
+    protocols:
+      - http
+      - https
+    environment: release
+    customDomains:
+      - domain: huihui.v-hiker.cn
+        certId: 0wvx8DOf
+        protocols:
+          - http
+          - https
+        pathMap:
+          - path: /
+            environment: release
+        customMap: true
+        isDefaultMapping: false

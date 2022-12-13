@@ -1,0 +1,13 @@
+org: '1252911770'
+app: huihui-app
+stage: dev
+component: layer
+name: huihui-app-layer
+inputs:
+  name: huihui-app-layer
+  region: ap-guangzhou
+  src:
+    src: ../node_modules
+    targetDir: /node_modules
+  runtimes:
+    - Nodejs12.16
